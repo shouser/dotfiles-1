@@ -11,7 +11,7 @@ ssh-keygen -t ed25519 -C $1
 eval "$(ssh-agent -s)"
 
 touch ~/.ssh/config
-echo "Host *\n AddKeysToAgent yes\n UseKeychain yes\n IdentityFile ~/.ssh/id_ed25519" | tee ~/.ssh/config
+echo "CanonicalizeHostname always\nCanonicalDomains staging.indiegogo.net indiegogo.io\n\nHost production-* prod-* !production-bastion*\n  ProxyJump production-bastion\n\nHost stage-*\n  ProxyJump production-bastion\n\nHost *\n  # UseKeychain yes\n  ForwardAgent yes\n  AddKeysToAgent 28800\n  User steve.houser\n  IdentityFile ~/.ssh/id_rsa\n  ControlMaster auto\n  ControlPath ~/.ssh/master-%h_%p_%r\n  ControlPersist 15s"  | tee ~/.ssh/config
 
 ssh-add -K ~/.ssh/id_ed25519
 

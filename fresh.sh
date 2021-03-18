@@ -19,25 +19,13 @@ brew update
 brew tap homebrew/bundle
 brew bundle
 
-# Set default MySQL root password and auth type.
-mysql -u root -e "ALTER USER root@localhost IDENTIFIED WITH mysql_native_password BY 'password'; FLUSH PRIVILEGES;"
+# Check for asdf and install if we don't have it
+if test ! $(which asdf); then
+  /usr/local/bin/git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
+fi
 
-# Install PHP extensions with PECL
-pecl install memcached imagick redis
-
-# Install global Composer packages
-/usr/local/bin/composer global require laravel/installer laravel/valet beyondcode/expose
-
-# Install Laravel Valet
-$HOME/.composer/vendor/bin/valet install
-
-# Create a Sites directory
-# This is a default directory for macOS user accounts but doesn't comes pre-installed
-mkdir $HOME/Sites
-
-# Create sites subdirectories
-mkdir $HOME/Sites/blade-ui-kit
-mkdir $HOME/Sites/laravel
+# Create a Projects directory
+mkdir $HOME/Projects
 
 # Clone Github repositories
 ./clone.sh

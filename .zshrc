@@ -74,12 +74,24 @@ HIST_STAMPS="dd/mm/yyyy"
 # Would you like to use another custom folder than $ZSH/custom?
 ZSH_CUSTOM=$DOTFILES
 
+# required to let asdf find it's completions for oh-my-zsh
+fpath=($HOME/.asdf/completions $fpath)
+
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+          git
+          asdf
+          rails
+          ruby
+          python
+          vscode
+          knife
+          knife_ssh
+)
 
 source $ZSH/oh-my-zsh.sh
 
